@@ -142,7 +142,7 @@
 </div>
 
 <div class="series-overlay" id="pOverlay">
-    <button class="close-btn" onclick="closeOverlay()"><img src="images/icons/ex.PNG" class="white-x"></button>
+    <button class="close-btn" onclick="closeOverlay()"><img src="images/icons/ex.png" class="white-x"></button>
     <div class="overlay-left" id="mediaTarget"></div>
     <div class="overlay-right">
         <h2 id="vTitle" style="font-family: 'Cormorant', serif; font-size: 2.2rem; margin-bottom: 0.5rem;"></h2>
@@ -219,9 +219,9 @@ function updateOverlay() {
         : `<img src="${data.src}" class="main-slide-img">`;
 
     document.getElementById('mediaTarget').innerHTML = `
-        <button class="nav-arrow prev-arrow" onclick="changeSlide(-1)"><img src="images/icons/backward.PNG"></button>
+        <button class="nav-arrow prev-arrow" onclick="changeSlide(-1)"><img src="images/icons/backward.png"></button>
         ${mediaHTML}
-        <button class="nav-arrow next-arrow" onclick="changeSlide(1)"><img src="images/icons/forward.PNG"></button>
+        <button class="nav-arrow next-arrow" onclick="changeSlide(1)"><img src="images/icons/forward.png"></button>
     `;
     document.getElementById('vTitle').innerText = data.title;
     document.getElementById('vMeta').innerText = data.meta;
