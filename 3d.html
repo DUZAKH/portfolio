@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>3D — Kiana Rezaee</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── PAGE LAYOUT ── */
+.page-wrap { padding-top: var(--nav-h); }
+
+.project-section {
+  padding: 4rem 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--cream-3);
+}
+.project-section:last-child { border-bottom: none; }
+
+.project-header { margin-bottom: 2rem; }
+.project-title { font-family: var(--font-dec); font-size: 2.5rem; margin: 0; }
+.project-meta { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; }
+
+/* ── GRID ── */
+.project-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+.g-item { grid-column: span 4; cursor: pointer; background: var(--cream-2); border: 1px solid var(--cream-3); overflow: hidden; position: relative; }
+.g-item.featured { grid-column: span 8; }
+.g-thumb, .g-video-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.g-item:hover .g-thumb, .g-item:hover .g-video-thumb { transform: scale(1.03); }
+
+/* ── MODAL OVERLAY ── */
+.series-overlay {
+  position: fixed; inset: 0;
+  background: rgba(32, 65, 138, 0.98); 
+  backdrop-filter: blur(15px);
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem;
+  padding: 3rem; opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease; z-index: 5000; color: #fff;
+}
+.series-overlay.is-active { opacity: 1; pointer-events: auto; }
+.overlay-left { position: relative; display: flex; align-items: center; justify-content: center; }
+.main-slide-img, .main-slide-video { max-width: 100%; max-height: 80vh; object-fit: contain; }
+
+.nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; z-index: 60; }
+.nav-arrow img { width: 40px; filter: brightness(0) invert(1); }
+.prev-arrow { left: -1rem; }
+.next-arrow { right: -1rem; }
+
+.close-btn { position: absolute; top: 2rem; right: 2rem; background: none; border: none; cursor: pointer; z-index: 100; }
+.close-btn img { width: 40px; filter: brightness(0) invert(1); }
+
+@media (max-width: 900px) {
+    .series-overlay { grid-template-columns: 1fr; padding: 1.5rem; overflow-y: auto; }
+    .g-item, .g-item.featured { grid-column: span 12; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">Kiana Rezaee</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="video.html">Video</a></li>
+    <li><a href="photography.html">Photography</a></li>
+    <li><a href="paintings.html">Paintings</a></li>
+    <li><a href="3d.html" class="active">3D</a></li>
+    <li><a href="sculptures.html">Sculptures</a></li>
+    <li><a href="interactive.html">Interactive</a></li>
+    <li><a href="others.html">Others</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <img src="images/icons/hamburger.png" alt="Menu">
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="menu-close" onclick="closeMobile()" aria-label="Close Menu">
+    <img src="images/icons/ex.png" alt="Close">
+  </button>
+  <a href="index.html" onclick="closeMobile()">Home</a>
+  <a href="about.html" onclick="closeMobile()">About</a>
+  <a href="video.html" onclick="closeMobile()">Video</a>
+  <a href="photography.html" onclick="closeMobile()">Photography</a>
+  <a href="paintings.html" onclick="closeMobile()">Paintings</a>
+  <a href="3d.html" onclick="closeMobile()">3D</a>
+  <a href="sculptures.html" onclick="closeMobile()">Sculptures</a>
+  <a href="interactive.html" onclick="closeMobile()">Interactive</a>
+  <a href="others.html" onclick="closeMobile()">Others</a>
+</div>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="page-header-left">
+      <p class="page-eyebrow">Work</p>
+      <h1 class="page-title"><span> digital </span> modeling</h1>
+    </div>
+  </div>
+  <div class="page-rule"></div>
+
+  <section class="project-section">
+    <div class="project-header">
+      <h2 class="project-title">6:36 AM</h2>
+      <p class="project-meta">Character Design · 2025 · Blender</p>
+    </div>
+    <div class="project-grid">
+      <div class="g-item featured" onclick="openProject('morning', 0)"><img src="images/3D/char_design_05.JPG" class="g-thumb"></div>
+      <div class="g-item" onclick="openProject('morning', 1)"><img src="images/3D/char_design_01.png" class="g-thumb"></div>
+      <div class="g-item" onclick="openProject('morning', 2)"><img src="images/3D/char_design_06.JPG" class="g-thumb"></div>
+      <div class="g-item" onclick="openProject('morning', 3)"><img src="images/3D/char_design_001.JPG" class="g-thumb"></div>
+      <div class="g-item" onclick="openProject('morning', 4)"><img src="images/3D/char_design_03.JPG" class="g-thumb"></div>
+      <div class="g-item" onclick="openProject('morning', 5)"><img src="images/3D/Char_design_04.JPG" class="g-thumb"></div>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <div class="project-header">
+      <h2 class="project-title">Traditional Iranian House</h2>
+      <p class="project-meta">Environment Study · 2024 · Blender</p>
+    </div>
+    <div class="project-grid">
+      <div class="g-item featured" onclick="openProject('house', 0)"><img src="images/3D/house_01.JPG" class="g-thumb"></div>
+      <div class="g-item" onclick="openProject('house', 1)"><img src="images/3D/house_02.jpg" class="g-thumb"></div>
+      <div class="g-item" onclick="openProject('house', 2)"><img src="images/3D/House_03.PNG" class="g-thumb"></div>
+      <div class="g-item" onclick="openProject('house', 3)"><img src="images/3D/house_04.PNG" class="g-thumb"></div>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <div class="project-header">
+      <h2 class="project-title">Bard-shir</h2>
+      <p class="project-meta">Cultural Heritage Study · 2024 · Blender</p>
+    </div>
+    <div class="project-grid">
+      <div class="g-item featured" onclick="openProject('bard', 0)"><img src="images/3D/bard_shir_01.jpg" class="g-thumb"></div>
+      <div class="g-item" onclick="openProject('bard', 1)">
+          <video src="images/3D/bard_shir_01.MP4" class="g-video-thumb" muted autoplay loop playsinline></video>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="series-overlay" id="pOverlay">
+    <button class="close-btn" onclick="closeOverlay()"><img src="images/icons/ex.png" class="white-x"></button>
+    <div class="overlay-left" id="mediaTarget"></div>
+    <div class="overlay-right">
+        <h2 id="vTitle" style="font-family: 'Cormorant', serif; font-size: 2.2rem; margin-bottom: 0.5rem;"></h2>
+        <p id="vMeta" style="opacity: 0.6; text-transform: uppercase; font-size: 0.65rem;"></p>
+        <p id="vDesc" style="line-height: 1.6; font-size: 0.85rem; margin: 1.5rem 0;"></p>
+        <p id="vCounter" style="font-size: 0.6rem; opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;"></p>
+    </div>
+</div>
+<footer class="site-footer container">
+  <span class="footer-logo">Kiana Rezaee</span>
+  <nav class="footer-links">
+    <a href="video.html">Video</a><a href="photography.html">Photography</a><a href="paintings.html">Paintings</a>
+    <a href="3d.html">3D</a><a href="sculptures.html">Sculptures</a><a href="interactive.html">Interactive</a>
+    <a href="others.html">Others</a><a href="about.html">Contact</a>
+  </nav>
+  <span class="footer-copy">&copy; 2026 Kiana Rezaee</span>
+</footer>
+
+
+<script src="shared.js"></script>
+<script>
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('is-active'); }
+const hamburger = document.getElementById('hamburger');
+if (hamburger) { hamburger.addEventListener('click', () => { document.getElementById('mobileMenu').classList.add('is-active'); }); }
+
+const projects = {
+    morning: [
+      { src: "images/3D/char_design_05.JPG", type: "img", title: "6:36 AM I", meta: "2025", desc: "Digital render." },
+      { src: "images/3D/char_design_01.png", type: "img", title: "6:36 AM II", meta: "2025", desc: "Moodboard." },
+      { src: "images/3D/char_design_06.JPG", type: "img", title: "6:36 AM III", meta: "2025", desc: "sketching" },
+      { src: "images/3D/char_design_001.JPG", type: "img", title: "6:36 AM IV", meta: "2025", desc: "Character sheet" },
+      { src: "images/3D/char_design_03.JPG", type: "img", title: "6:36 AM V", meta: "2025", desc: "face." },
+      { src: "images/3D/Char_design_04.JPG", type: "img", title: "6:36 AM VI", meta: "2025", desc: "sculpt." }
+    ],
+    house: [
+      { src: "images/3D/house_01.JPG", type: "img", title: "Interior", meta: "2024", desc: "Environment study." },
+      { src: "images/3D/house_02.jpg", type: "img", title: "Texture", meta: "2024", desc: "Environment study." },
+      { src: "images/3D/House_03.PNG", type: "img", title: "Courtyard", meta: "2024", desc: "Environment study." },
+      { src: "images/3D/house_04.PNG", type: "img", title: "Atmosphere", meta: "2024", desc: "Environment study." }
+    ],
+    bard: [
+      { src: "images/3D/bard_shir_01.jpg", type: "img", title: "Bard-shir I", meta: "2024", desc: "Cultural heritage study os bakhtiari tombstones." },
+      { src: "images/3D/bard_shir_01.MP4", type: "video", title: "Bard-shir II", meta: "2024", desc: "render." },
+    ]
+};
+
+
+let currentKey = "";
+let currentIndex = 0;
+
+function openProject(key, index) {
+    currentKey = key; currentIndex = index;
+    updateOverlay();
+    document.getElementById('pOverlay').classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeOverlay() {
+    document.getElementById('pOverlay').classList.remove('is-active');
+    document.body.style.overflow = 'auto';
+    const video = document.querySelector('.main-slide-video');
+    if (video) video.pause();
+}
+
+function changeSlide(dir) {
+    currentIndex = (currentIndex + dir + projects[currentKey].length) % projects[currentKey].length;
+    updateOverlay();
+}
+
+function updateOverlay() {
+    const data = projects[currentKey][currentIndex];
+    const mediaHTML = data.type === "video" 
+        ? `<video src="${data.src}" class="main-slide-video" controls autoplay loop></video>`
+        : `<img src="${data.src}" class="main-slide-img">`;
+
+    document.getElementById('mediaTarget').innerHTML = `
+        <button class="nav-arrow prev-arrow" onclick="changeSlide(-1)"><img src="images/icons/backward.png"></button>
+        ${mediaHTML}
+        <button class="nav-arrow next-arrow" onclick="changeSlide(1)"><img src="images/icons/forward.png"></button>
+    `;
+    document.getElementById('vTitle').innerText = data.title;
+    document.getElementById('vMeta').innerText = data.meta;
+    document.getElementById('vDesc').innerText = data.desc;
+    document.getElementById('vCounter').innerText = `${currentIndex + 1} / ${projects[currentKey].length}`;
+}
+</script>
+</body>
+</html>

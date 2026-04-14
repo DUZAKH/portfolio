@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kiana Rezaee</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── HERO OVERLAP ── */
+.hero { min-height: 100vh; display: flex; flex-direction: column; padding-top: var(--nav-h); }
+.hero-main { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2.5rem; text-align: center; }
+.hero-img-wrap { width: min(450px, 90vw); z-index: 1; }
+.hero-left { order: 2; margin-top: -6rem; z-index: 2; position: relative; }
+.hero-zapfino { font-family: var(--font-dec); font-size: 1.8rem; color: var(--blue); margin-bottom: 0.5rem; }
+.hero-name { font-family: 'Cormorant', serif; font-size: clamp(3rem, 7vw, 6rem); line-height: 0.95; margin-bottom: 0.8rem; }
+.hero-name-sub { font-style: italic; opacity: 0.4; margin-bottom: 2.5rem; }
+
+/* ── COMPACT WORK GRID ── */
+.work-section { 
+  padding: 8rem 1.5rem; 
+  max-width: 1600px;    
+  margin: 0 auto; 
+}
+
+.work-grid { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 2rem; 
+  justify-content: center; 
+}
+
+.wg-item {
+  position: relative;
+  text-decoration: none;
+  color: #fff;
+  overflow: hidden;
+  transition: transform 0.6s var(--ease);
+  width: 100%; 
+}
+
+.wg-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: scale 0.8s var(--ease), filter 0.5s; }
+
+/* ── TEXT OVERLAY ── */
+.wg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(32, 65, 138, 0.85); 
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.wg-item:hover .wg-overlay { opacity: 1; }
+.wg-item:hover .wg-img { scale: 1.05; filter: grayscale(100%); }
+
+.wg-title { font-family: var(--font-dec); font-size: 1.6rem; margin-bottom: 0.5rem; }
+.wg-sub { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.2em; opacity: 0.7; }
+
+/* ── GRID RESPONSIVENESS ── */
+@media (max-width: 1024px) {
+  .work-grid { grid-template-columns: repeat(2, 1fr); }
+  .wg-item.bezoar-hero { grid-column: span 2; }
+}
+
+@media (max-width: 860px) {
+  .hero-left { margin-top: 0; }
+}
+
+@media (max-width: 600px) {
+  .work-grid { grid-template-columns: 1fr; gap: 2rem; } 
+  .wg-item.bezoar-hero { grid-column: span 1; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">Kiana Rezaee</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="video.html">Video</a></li>
+    <li><a href="photography.html">Photography</a></li>
+    <li><a href="paintings.html">Paintings</a></li>
+    <li><a href="3d.html">3D</a></li>
+    <li><a href="sculptures.html">Sculptures</a></li>
+    <li><a href="interactive.html">Interactive</a></li>
+    <li><a href="others.html">Others</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <img src="images/icons/hamburger.png" alt="Menu">
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="menu-close" onclick="closeMobile()" aria-label="Close Menu">
+    <img src="images/icons/ex.png" alt="Close">
+  </button>
+  
+  <a href="index.html" onclick="closeMobile()">Home</a>
+  <a href="about.html" onclick="closeMobile()">About</a>
+  <a href="video.html" onclick="closeMobile()">Video</a>
+  <a href="photography.html" onclick="closeMobile()">Photography</a>
+  <a href="paintings.html" onclick="closeMobile()">Paintings</a>
+  <a href="3d.html" onclick="closeMobile()">3D</a>
+  <a href="sculptures.html" onclick="closeMobile()">Sculptures</a>
+  <a href="interactive.html" onclick="closeMobile()">Interactive</a>
+  <a href="others.html" onclick="closeMobile()">Others</a>
+</div>
+
+<section class="hero">
+  <div class="hero-main">
+    <div class="hero-right">
+      <div class="hero-img-wrap">
+        <img src="images/landing.png" alt="Portrait" class="hero-img">
+      </div>
+    </div>
+    <div class="hero-left">
+      <div class="hero-zapfino">Welcome to my portfolio</div>
+      <h1 class="hero-name">Kiana Rezaee</h1>
+      <p class="hero-name-sub">Digital Generalist & Visual Artist | Montreal, QC</p>
+      <div class="hero-cta">
+        <a href="#work" class="btn">View work</a>
+        <a href="about.html" class="btn">About</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="work" class="work-section">
+  <div class="work-grid">
+    <a href="video.html" class="wg-item" style="aspect-ratio: 16/9;">
+      <img src="images/video/mabeyn_01.jpg" class="wg-img" alt="Mābeyn-e do Khov">
+      <div class="wg-overlay">
+        <h2 class="wg-title">Mābeyn-e do Khov</h2>
+        <p class="wg-sub">Video / Experimental</p>
+      </div>
+    </a>
+    
+    <a href="photography.html" class="wg-item" style="aspect-ratio: 4/5;">
+      <img src="images/photography/hanaseh_01.jpg" class="wg-img" alt="Hanāseh">
+      <div class="wg-overlay">
+        <h2 class="wg-title">Hanāseh</h2>
+        <p class="wg-sub">Photography / Analogue</p>
+      </div>
+    </a>
+
+    <a href="paintings.html" class="wg-item" style="aspect-ratio: 1/1;">
+      <img src="images/paintings/painting_03.jpg" class="wg-img" alt="Death of a Giselle">
+      <div class="wg-overlay">
+        <h2 class="wg-title">Death of a Giselle</h2>
+        <p class="wg-sub">Painting & Sketching</p>
+      </div>
+    </a>
+
+    <a href="sculptures.html" class="wg-item bezoar-hero" style="aspect-ratio: 1240/609; grid-column: span 2;">
+      <img src="images/sculptures/bezoar_01.jpg" class="wg-img" alt="Bezoar">
+      <div class="wg-overlay">
+        <h2 class="wg-title">Bezoar</h2>
+        <p class="wg-sub">Sculpture / Ceramic Form</p>
+      </div>
+    </a>
+    
+    <a href="3d.html" class="wg-item" style="aspect-ratio: 4/3;">
+      <img src="images/3d/char_design_05.jpg" class="wg-img" alt="3D Modeling">
+      <div class="wg-overlay">
+        <h2 class="wg-title">Digital Modeling</h2>
+        <p class="wg-sub">3D & Computational Arts</p>
+      </div>
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer container">
+  <span class="footer-logo">Kiana Rezaee</span>
+  <nav class="footer-links">
+    <a href="video.html">Video</a><a href="photography.html">Photography</a><a href="paintings.html">Paintings</a>
+    <a href="3d.html">3D</a><a href="sculptures.html">Sculptures</a><a href="interactive.html">Interactive</a>
+    <a href="others.html">Others</a><a href="about.html">Contact</a>
+  </nav>
+  <span class="footer-copy">&copy; 2026 Kiana Rezaee</span>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>

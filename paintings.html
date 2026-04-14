@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Paintings & Sketches — Kiana Rezaee</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── PAGE LAYOUT ── */
+.gallery-outer { padding: 2rem 2.5rem 8rem; max-width: 1280px; margin: 0 auto; }
+
+/* ── CLEAN GRID ── */
+.p-grid {
+display: grid;
+grid-template-columns: repeat(12, 1fr);
+gap: 1.5rem;
+}
+
+.p-item {
+grid-column: span 4;
+cursor: zoom-in;
+overflow: hidden;
+border: 1px solid var(--cream-3);
+background: var(--cream-2);
+}
+
+.p-img-thumb {
+width: 100%;
+aspect-ratio: 1/1;
+object-fit: cover;
+display: block;
+transition: transform 0.6s var(--ease);
+}
+
+.p-item:hover .p-img-thumb { transform: scale(1.05); }
+
+/* ── SLIDESHOW OVERLAY (BLUE) ── */
+.painting-overlay {
+position: fixed;
+inset: 0;
+background: rgba(32, 65, 138, 0.96); /* Your brand blue */
+backdrop-filter: blur(12px);
+display: flex;
+align-items: center;
+justify-content: center;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.4s var(--ease);
+z-index: 2000;
+}
+
+.painting-overlay.is-active { opacity: 1; pointer-events: auto; }
+
+.overlay-content {
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+max-width: 90vw;
+}
+
+.overlay-img-container {
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.overlay-img {
+max-height: 75vh;
+width: auto;
+max-width: 100%;
+object-fit: contain;
+box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* ── WHITE BUTTONS ON BLUE ── */
+.nav-arrow {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: none;
+border: none;
+cursor: pointer;
+padding: 2.5rem;
+z-index: 2100;
+transition: opacity 0.3s, transform 0.3s;
+}
+
+.nav-arrow img {
+width: 45px;
+height: auto;
+filter: brightness(0) invert(1); /* Pure white */
+}
+
+.nav-arrow:hover { opacity: 0.7; transform: translateY(-50%) scale(1.1); }
+.prev-arrow { left: 0; }
+.next-arrow { right: 0; }
+
+.close-btn {
+position: absolute;
+top: 1.5rem;
+right: 1.5rem;
+background: none;
+border: none;
+cursor: pointer;
+z-index: 2200;
+transition: opacity 0.3s;
+}
+
+.close-btn img {
+width: 35px;
+filter: brightness(0) invert(1); /* Pure white */
+}
+
+.close-btn:hover { opacity: 0.7; }
+
+.overlay-info {
+text-align: center;
+color: #fff;
+margin-top: 1.5rem;
+}
+
+.overlay-title {
+font-family: var(--font-dec);
+font-size: 2.2rem;
+margin: 0;
+}
+
+.overlay-meta {
+font-size: 0.7rem;
+text-transform: uppercase;
+letter-spacing: 0.15em;
+opacity: 0.7;
+margin-top: 0.4rem;
+}
+
+@media (max-width: 900px) {
+.p-item { grid-column: span 6; }
+.nav-arrow img { width: 35px; }
+}
+@media (max-width: 600px) {
+.p-item { grid-column: span 12; }
+.overlay-title { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+<a href="index.html" class="nav-logo">Kiana Rezaee</a>
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="video.html">Video</a></li>
+<li><a href="photography.html">Photography</a></li>
+<li><a href="paintings.html" class="active">Paintings</a></li>
+<li><a href="3d.html">3D</a></li>
+<li><a href="sculptures.html">Sculptures</a></li>
+<li><a href="interactive.html">Interactive</a></li>
+<li><a href="others.html">Others</a></li>
+</ul>
+<button class="hamburger" id="hamburger" aria-label="Menu">
+<img src="images/icons/hamburger.png" alt="Menu">
+</button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+<button class="menu-close" id="menuClose" aria-label="Close Menu">
+<img src="images/icons/ex.png" alt="Close">
+</button>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="video.html">Video</a>
+<a href="photography.html">Photography</a>
+<a href="paintings.html">Paintings</a>
+<a href="3d.html">3D</a>
+<a href="sculptures.html">Sculptures</a>
+<a href="interactive.html">Interactive</a>
+<a href="others.html">Others</a>
+</div>
+
+<div class="page-wrap">
+<div class="page-header">
+<div class="page-header-left">
+<p class="page-eyebrow">Work</p>
+<h1 class="page-title">Marks <span>on surface</span></h1>
+</div>
+</div>
+<div class="page-rule"></div>
+
+<div class="gallery-outer">
+<div class="p-grid">
+<div class="p-item reveal" onclick="openSlideshow(0)">
+<img src="images/paintings/painting_01.jpg" class="p-img-thumb">
+</div>
+<div class="p-item reveal" onclick="openSlideshow(1)">
+<img src="images/paintings/Painting_02.jpg" class="p-img-thumb">
+</div>
+<div class="p-item reveal" onclick="openSlideshow(2)">
+<img src="images/paintings/Painting_03.JPG" class="p-img-thumb">
+</div>
+<div class="p-item reveal" onclick="openSlideshow(3)">
+<img src="images/paintings/Painting_04.jpg" class="p-img-thumb">
+</div>
+<div class="p-item reveal" onclick="openSlideshow(4)">
+<img src="images/paintings/Painting_05.jpg" class="p-img-thumb">
+</div>
+<div class="p-item reveal" onclick="openSlideshow(5)">
+<img src="images/paintings/painting_06.JPG" class="p-img-thumb">
+</div>
+<div class="p-item reveal" onclick="openSlideshow(6)">
+<img src="images/paintings/painting_07.JPG" class="p-img-thumb">
+</div>
+<div class="p-item reveal" onclick="openSlideshow(7)">
+<img src="images/paintings/painting_08.JPG" class="p-img-thumb">
+</div>
+<div class="p-item reveal" onclick="openSlideshow(8)">
+<img src="images/paintings/painting_09.jpg" class="p-img-thumb">
+</div>
+</div>
+</div>
+</div>
+
+<div class="painting-overlay" id="pOverlay" onclick="closeSlideshow()">
+<button class="close-btn" onclick="closeSlideshow()">
+<img src="images/icons/ex.png" alt="Close">
+</button>
+
+<div class="overlay-content" onclick="event.stopPropagation()">
+<div class="overlay-img-container">
+<button class="nav-arrow prev-arrow" onclick="changeSlide(-1)">
+<img src="images/icons/backward.png" alt="Previous">
+</button>
+<img id="vImg" src="" class="overlay-img">
+<button class="nav-arrow next-arrow" onclick="changeSlide(1)">
+<img src="images/icons/forward.png" alt="Next">
+</button>
+</div>
+
+<div class="overlay-info">
+<h2 id="vTitle" class="overlay-title"></h2>
+<p id="vMeta" class="overlay-meta"></p>
+</div>
+</div>
+</div>
+
+<footer class="site-footer container">
+  <span class="footer-logo">Kiana Rezaee</span>
+  <nav class="footer-links">
+    <a href="video.html">Video</a><a href="photography.html">Photography</a><a href="paintings.html">Paintings</a>
+    <a href="3d.html">3D</a><a href="sculptures.html">Sculptures</a><a href="interactive.html">Interactive</a>
+    <a href="others.html">Others</a><a href="about.html">Contact</a>
+  </nav>
+  <span class="footer-copy">&copy; 2026 Kiana Rezaee</span>
+</footer>
+
+<script>
+// --- HAMBURGER MENU LOGIC ---
+const hamburger = document.getElementById('hamburger');
+const menuClose = document.getElementById('menuClose');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (hamburger) {
+hamburger.addEventListener('click', () => {
+mobileMenu.classList.add('is-active');
+});
+}
+
+if (menuClose) {
+menuClose.addEventListener('click', () => {
+mobileMenu.classList.remove('is-active');
+});
+}
+
+document.querySelectorAll('.mobile-menu a').forEach(link => {
+link.addEventListener('click', () => {
+mobileMenu.classList.remove('is-active');
+});
+});
+
+// --- PAINTING SLIDESHOW LOGIC ---
+const paintingData = [
+{ src: 'images/paintings/painting_01.jpg', title: 'Batlagh', meta: '2022 · Acrylic & Oil Pastel' },
+{ src: 'images/paintings/Painting_02.jpg', title: 'Migration of a Bulbul', meta: '2023 · Acrylic' },
+{ src: 'images/paintings/Painting_03.JPG', title: 'Death of a Giselle', meta: '2021 · Acrylic' },
+{ src: 'images/paintings/Painting_04.jpg', title: 'Untitled', meta: '2024 · Oil Pastel' },
+{ src: 'images/paintings/Painting_05.jpg', title: 'Flowers', meta: '2025 · Gouache on Canvas' },
+{ src: 'images/paintings/painting_06.JPG', title: 'Arash', meta: '2024 · Acrylic' },
+{ src: 'images/paintings/painting_07.JPG', title: 'Helena', meta: '2023 · Acrylic' },
+{ src: 'images/paintings/painting_08.JPG', title: 'Untitled', meta: '2022 · Acrylic' },
+{ src: 'images/paintings/painting_09.jpg', title: 'Nika', meta: '2022 · Acrylic' }
+];
+
+let currentIndex = 0;
+
+function openSlideshow(index) {
+currentIndex = index;
+updateOverlay();
+document.getElementById('pOverlay').classList.add('is-active');
+document.body.style.overflow = 'hidden';
+}
+
+function closeSlideshow() {
+document.getElementById('pOverlay').classList.remove('is-active');
+document.body.style.overflow = 'auto';
+}
+
+function changeSlide(step) {
+currentIndex = (currentIndex + step + paintingData.length) % paintingData.length;
+updateOverlay();
+}
+
+function updateOverlay() {
+const data = paintingData[currentIndex];
+document.getElementById('vImg').src = data.src;
+document.getElementById('vTitle').innerText = data.title;
+document.getElementById('vMeta').innerText = data.meta;
+}
+
+document.addEventListener('keydown', (e) => {
+if (!document.getElementById('pOverlay').classList.contains('is-active')) return;
+if (e.key === 'ArrowLeft') changeSlide(-1);
+if (e.key === 'ArrowRight') changeSlide(1);
+if (e.key === 'Escape') closeSlideshow();
+});
+</script>
+<script src="shared.js"></script>
+</body>
+</html>

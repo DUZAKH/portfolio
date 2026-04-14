@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sculptures — Kiana Rezaee</title>
+<link rel="stylesheet" href="shared.css"/>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+<style>
+.gallery-outer{padding:0 2.5rem 8rem;max-width:1280px;margin:0 auto}
+
+/* ── 3D & FEATURE SECTIONS ── */
+.sculpture-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin: 4rem 0 10rem;
+  align-items: center;
+}
+
+.feature-3d-window {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: transparent;
+  cursor: grab;
+}
+
+model-viewer {
+  width: 100%;
+  height: 100%;
+  --poster-color: transparent;
+}
+
+.feature-info h2 {
+  font-family: var(--font-dec);
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+.mini-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.mini-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  background: var(--cream-2);
+  border: 1px solid var(--cream-3);
+}
+
+/* ── GALLERY GRID ── */
+.gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
+.g-item{position:relative;background:var(--cream-2);border:1px solid var(--cream-3);overflow:hidden;cursor:zoom-in;transition:box-shadow .35s var(--ease)}
+.g-item:hover{box-shadow:var(--shadow-med)}
+.g-item:hover .g-placeholder{transform:scale(1.04)}
+
+.c4{grid-column:span 4}
+.g-img-wrap{overflow:hidden; display: block;}
+.g-placeholder{width:100%; display: block; transition:transform .55s var(--ease)}
+.ar-4-3{aspect-ratio:4/3; object-fit: cover;}
+
+@media(max-width:860px){
+  .gallery-outer{padding:0 1.25rem 4rem}
+  .sculpture-feature { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 6rem; }
+  .feature-interactive-row { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .c4{grid-column:span 12}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">Kiana Rezaee</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <img src="images/icons/hamburger.png" alt="Menu">
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+    <li><a href="video.html">Video</a></li><li><a href="photography.html">Photography</a></li>
+    <li><a href="paintings.html">Paintings</a></li><li><a href="3d.html">3D</a></li>
+    <li><a href="sculptures.html" class="active">Sculptures</a></li><li><a href="interactive.html">Interactive</a></li>
+    <li><a href="others.html">Others</a></li>
+  </ul>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="menu-close" onclick="closeMobile()" aria-label="Close Menu">
+    <img src="images/icons/ex.png" alt="Close">
+  </button>
+  <a href="index.html" onclick="closeMobile()">Home</a>
+  <a href="about.html" onclick="closeMobile()">About</a>
+  <a href="video.html" onclick="closeMobile()">Video</a>
+  <a href="photography.html" onclick="closeMobile()">Photography</a>
+  <a href="paintings.html" onclick="closeMobile()">Paintings</a>
+  <a href="3d.html" onclick="closeMobile()">3D</a>
+  <a href="sculptures.html" onclick="closeMobile()">Sculptures</a>
+  <a href="interactive.html" onclick="closeMobile()">Interactive</a>
+  <a href="others.html" onclick="closeMobile()">Others</a>
+</div>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="page-header-left">
+      <p class="page-eyebrow">Work</p>
+      <h1 class="page-title"><span>Form in</span> volume</h1>
+    </div>
+    <span class="page-count">— Sculptures</span>
+  </div>
+  <div class="page-rule"></div>
+
+  <div class="gallery-outer">
+    
+    <section class="sculpture-feature reveal" style="grid-template-columns: 1fr;">
+      <div class="feature-hero-img-wrap" style="margin-bottom: 4rem; border: 1px solid var(--cream-3); overflow: hidden; width: 100%;">
+        <img src="images/sculptures/bezoar_01.jpg" 
+             alt="Bezoar Sculpture - Main View" 
+             style="width: 100%; height: auto; display: block; object-fit: cover;">
+      </div>
+
+      <div class="feature-interactive-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+        <div class="feature-3d-window">
+          <model-viewer 
+            src="3d-stuff/bezoar.glb" 
+            alt="3D model of Bezoar"
+            camera-controls 
+            touch-action="pan-y"
+            interaction-prompt="none"
+            shadow-intensity="1"
+            background-color="transparent">
+          </model-viewer>
+        </div>
+        <div class="feature-info">
+          <p class="page-eyebrow">Featured Piece</p>
+          <h2>Bezoar</h2>
+          <p class="g-caption-meta">2026 · Clay · Interactive 3D Model</p>
+          <p style="margin-top: 1.5rem; opacity: 0.7; line-height: 1.6;">
+            Object inspired by Lorestan Bronze artifacts, bezoar ibex posess the largest horns of any fauna. They are native to the Zagros mountains of Iran, and their distinctive curved horns have been a recurring motif in my work. This piece was hand-sculpted from clay, it serves as an incense burner. Finally, it was 3D scanned and rendered for interactive viewing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sculpture-feature reveal">
+      <div class="feature-3d-window">
+        <model-viewer 
+          src="3d-stuff/bird.glb" 
+          alt="3D model of Bird"
+          camera-controls 
+          touch-action="pan-y"
+          interaction-prompt="none"
+          shadow-intensity="1"
+          background-color="transparent">
+        </model-viewer>
+      </div>
+      
+      <div class="feature-info">
+        <p class="page-eyebrow">Featured Piece</p>
+        <h2>Bird</h2>
+        <p class="g-caption-meta">2024 · Polymer Clay · Feather </p>
+        <p style="margin-top: 1.5rem; opacity: 0.7; line-height: 1.6;">
+          An exploration of weight and weightlessness. Use your mouse to rotate the sculpture and examine the hand-molded textures.
+        </p>
+        <div class="mini-gallery">
+          <img src="images/sculptures/bird_01.jpg" class="mini-img" alt="Bird view 1">
+        </div>
+      </div>
+    </section>
+    
+<footer class="site-footer container">
+  <span class="footer-logo">Kiana Rezaee</span>
+  <nav class="footer-links">
+    <a href="video.html">Video</a><a href="photography.html">Photography</a><a href="paintings.html">Paintings</a>
+    <a href="3d.html">3D</a><a href="sculptures.html">Sculptures</a><a href="interactive.html">Interactive</a>
+    <a href="others.html">Others</a><a href="about.html">Contact</a>
+  </nav>
+  <span class="footer-copy">&copy; 2026 Kiana Rezaee</span>
+</footer>
+</body>
+</html>
+<script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Interactive — Kiana Rezaee</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── HOLDER PAGE LAYOUT ── */
+.blooming-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* ── GENTLE FLOAT ANIMATION ── */
+.blooming-icon {
+  width: 120px;
+  height: auto;
+  margin-bottom: 2rem;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.blooming-text {
+  font-family: var(--font-dec);
+  font-size: 2.5rem;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.blooming-sub {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(15, 20, 26, 0.4);
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .blooming-text { font-size: 1.8rem; }
+  .blooming-icon { width: 80px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">Kiana Rezaee</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+    <li><a href="video.html">Video</a></li><li><a href="photography.html">Photography</a></li>
+    <li><a href="paintings.html">Paintings</a></li><li><a href="3d.html">3D</a></li>
+    <li><a href="sculptures.html">Sculptures</a></li><li><a href="interactive.html" class="active">Interactive</a></li>
+    <li><a href="others.html">Others</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <img src="images/icons/hamburger.png" alt="Menu">
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="menu-close" onclick="closeMobile()" aria-label="Close Menu">
+    <img src="images/icons/ex.png" alt="Close">
+  </button>
+  <a href="index.html" onclick="closeMobile()">Home</a>
+  <a href="about.html" onclick="closeMobile()">About</a>
+  <a href="video.html" onclick="closeMobile()">Video</a>
+  <a href="photography.html" onclick="closeMobile()">Photography</a>
+  <a href="paintings.html" onclick="closeMobile()">Paintings</a>
+  <a href="3d.html" onclick="closeMobile()">3D</a>
+  <a href="sculptures.html" onclick="closeMobile()">Sculptures</a>
+  <a href="interactive.html" onclick="closeMobile()">Interactive</a>
+  <a href="others.html" onclick="closeMobile()">Others</a>
+</div>
+
+<div class="page-wrap">
+  <div class="blooming-wrap">
+    <img src="images/icons/unavailable.png" alt="Still Blooming" class="blooming-icon">
+    <h1 class="blooming-text">Still blooming</h1>
+    <p class="blooming-sub">Experiments in progress</p>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+</body>
+</html>

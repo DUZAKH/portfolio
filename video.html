@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Video — Kiana Rezaee</title>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* ── PAGE LAYOUT ── */
+.page-wrap { padding-top: var(--nav-h); }
+
+.featured-section {
+  padding: 0 2.5rem 4rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+#featuredWrap {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #000;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  cursor: url('images/icons/scroller.png') 50 50, ew-resize;
+  border: 1px solid var(--cream-3);
+}
+
+#featuredVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none; 
+}
+
+.scrub-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: var(--ember);
+  width: 0%;
+  z-index: 15;
+  pointer-events: none;
+}
+
+/* ── FEATURED PROJECT OVERLAY (BLUE) ── */
+.featured-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(32, 65, 138, 0.95); 
+  backdrop-filter: blur(10px);
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 3rem;
+  padding: 5rem 4rem 4rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+  z-index: 20;
+  color: #fff;
+  overflow-y: auto;
+}
+
+.featured-overlay.is-active { opacity: 1; pointer-events: auto; }
+
+.overlay-content-left { display: flex; flex-direction: column; gap: 2rem; }
+
+.overlay-video-container {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+}
+
+.overlay-video-container video { width: 100%; height: 100%; display: block; }
+
+.overlay-images-bottom {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.overlay-images-bottom img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.featured-info-static {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
+  color: #fff;
+  pointer-events: none;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.close-overlay {
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+  background: none; border: none; width: 35px; cursor: pointer;
+  z-index: 30;
+}
+.close-overlay img { width: 100%; filter: brightness(0) invert(1); }
+
+/* ── GALLERY GRID (CONSISTENT STYLING) ── */
+.gallery-outer { padding: 2rem 2.5rem 8rem; max-width: 1280px; margin: 0 auto; }
+.gallery-label { 
+  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; 
+  opacity: 0.4; margin-bottom: 2rem; border-bottom: 1px solid var(--cream-3);
+  padding-bottom: 1rem;
+}
+
+.v-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+
+.v-item { 
+  grid-column: span 4; 
+  position: relative; 
+  overflow: hidden; 
+  border: 1px solid var(--cream-3);
+  background: var(--cream-2);
+  cursor: pointer;
+}
+
+.v-thumb { 
+  width: 100%; 
+  aspect-ratio: 16/9; 
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s var(--ease);
+}
+
+.v-item:hover .v-thumb { transform: scale(1.05); }
+
+/* ── INFO OVERLAY (Matches Painting/Interactive style) ── */
+.v-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(32, 65, 138, 0.92); /* Your brand blue */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.v-item:hover .v-overlay { opacity: 1; }
+
+.v-overlay-title {
+  font-family: var(--font-dec);
+  font-size: 1.6rem;
+  margin-bottom: 0.3rem;
+}
+
+.v-overlay-meta {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.8;
+}
+
+@media (max-width: 1024px) {
+  .featured-overlay { grid-template-columns: 1fr; padding: 6rem 2rem 2rem; }
+  .v-item { grid-column: span 6; }
+}
+@media (max-width: 600px) {
+  .v-item { grid-column: span 12; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">Kiana Rezaee</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="video.html" class="active">Video</a></li>
+    <li><a href="photography.html">Photography</a></li>
+    <li><a href="paintings.html">Paintings</a></li>
+    <li><a href="3d.html">3D</a></li>
+    <li><a href="sculptures.html">Sculptures</a></li>
+    <li><a href="interactive.html">Interactive</a></li>
+    <li><a href="others.html">Others</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <img src="images/icons/hamburger.png" alt="Menu">
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="menu-close" id="menuClose" aria-label="Close Menu">
+    <img src="images/icons/ex.png" alt="Close">
+  </button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="video.html">Video</a>
+  <a href="photography.html">Photography</a>
+  <a href="paintings.html">Paintings</a>
+  <a href="3d.html">3D</a>
+  <a href="sculptures.html">Sculptures</a>
+  <a href="interactive.html">Interactive</a>
+  <a href="others.html">Others</a>
+</div>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="page-header-left">
+      <p class="page-eyebrow">Work</p>
+      <h1 class="page-title">moving <span>images</span></h1>
+    </div>
+  </div>
+  <div class="page-rule"></div>
+
+  <section class="featured-section">
+    <div id="featuredWrap">
+      <video id="featuredVideo" muted loop playsinline preload="auto" poster="images/video/mabeyn_01.jpg">
+        <source src="images/video/mabeynedokho.mp4" type="video/mp4">
+      </video>
+      <div class="scrub-bar" id="scrubBar"></div>
+      <div class="featured-info-static" id="staticInfo">
+        <h2 style="font-family: var(--font-dec); font-size: 1.5rem;">Mābeyn-e do Khov</h2>
+        <p style="font-family: var(--font-body); opacity: 0.7; font-size: 0.6rem; letter-spacing: 0.1em;">DRAG TO SCRUB • CLICK TO EXPLORE</p>
+      </div>
+
+      <div class="featured-overlay" id="videoOverlay">
+        <button class="close-overlay" id="closeOverlay"><img src="images/icons/ex.png" alt="Close"></button>
+        <div class="overlay-content-left">
+          <div class="overlay-video-container">
+            <video id="overlayInternalVideo" controls><source src="images/video/mabeynedokho.mp4" type="video/mp4"></video>
+          </div>
+          <div class="overlay-images-bottom" id="overlayImgGrid"></div>
+        </div>
+        <div class="overlay-content-right" id="overlayText">
+          <h2 style="font-family: var(--font-dec); font-size: 2.5rem; margin-bottom: 0.5rem;">Mābeyn-e do Khov</h2>
+          <p id="overlayMeta" style="opacity: 0.6; margin-bottom: 1.5rem; text-transform: uppercase; font-size: 0.7rem;"></p>
+          <div id="overlayDesc" style="line-height: 1.7; font-weight: 300; font-size: 0.9rem;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gallery-outer">
+    <p class="gallery-label">Selected Works</p>
+    <div class="v-grid">
+      <div class="v-item" onclick="switchProject('mabeyn')">
+        <div class="v-thumb" style="background-image: url('images/video/mabeyn_01.jpg');"></div>
+        <div class="v-overlay">
+          <h3 class="v-overlay-title">Mābeyn-e do Khov</h3>
+          <p class="v-overlay-meta">2026 • Experimental</p>
+        </div>
+      </div>
+      <div class="v-item" onclick="switchProject('tashras')">
+        <div class="v-thumb" style="background-image: url('images/video/Tash_Ras_01.jpg');"></div>
+        <div class="v-overlay">
+          <h3 class="v-overlay-title">Tash-Rās</h3>
+          <p class="v-overlay-meta">2026 • Documentation</p>
+        </div>
+      </div>
+      <div class="v-item" onclick="switchProject('ophelia')">
+        <div class="v-thumb" style="background-image: url('images/video/ophelia_01.jpg');"></div>
+        <div class="v-overlay">
+          <h3 class="v-overlay-title">Ophelian Cycle</h3>
+          <p class="v-overlay-meta">2024 • Experimental</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer container">
+  <span class="footer-logo">Kiana Rezaee</span>
+  <nav class="footer-links">
+    <a href="video.html">Video</a><a href="photography.html">Photography</a><a href="paintings.html">Paintings</a>
+    <a href="3d.html">3D</a><a href="sculptures.html">Sculptures</a><a href="interactive.html">Interactive</a>
+    <a href="others.html">Others</a><a href="about.html">Contact</a>
+  </nav>
+  <span class="footer-copy">&copy; 2026 Kiana Rezaee</span>
+</footer>
+
+<script>
+  // HAMBURGER MENU LOGIC
+  const hamburger = document.getElementById('hamburger');
+  const menuClose = document.getElementById('menuClose');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.add('is-active');
+    });
+  }
+
+  if (menuClose) {
+    menuClose.addEventListener('click', () => {
+      mobileMenu.classList.remove('is-active');
+    });
+  }
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('is-active');
+    });
+  });
+
+  // VIDEO PROJECT LOGIC
+  const projectData = {
+    mabeyn: {
+      title: "Mābeyn-e do Khov",
+      meta: "Experimental Video • 2026",
+      desc: "A video work exploring cultural liminality through ancestral memory and dreamscapes. Featuring traditional Luri garments and archival elements from the Grass (1925), People of the Wind (1976) and How green was our Valley (2009).",
+      video: "images/video/mabeynedokho.mp4",
+      stills: ["images/video/mabeyn_01.jpg", "images/video/mabeyn_03.webp", "images/video/mabeyn_04.jpg"]
+    },
+    tashras: {
+      title: "Tash-Rās",
+      meta: "Sculptural Installation • 2026",
+      desc: "Documentation of a light and sculpture installation. Bridges the gap between the cultural and digital.",
+      video: "images/video/Tash_Ras.mp4",
+      stills: ["images/video/Tash_Ras_01.jpg", "images/video/Tash_Ras_03.jpg"]
+    },
+    ophelia: {
+      title: "Ophelian Cycle",
+      meta: "Experimental Video • 2024",
+      desc: "A visual exploration of cyclical movement and environmental immersion, it depicts the passage of seasons and the transformation intow womanhood.",
+      video: "images/video/ophelia.mp4",
+      stills: ["images/video/ophelia_01.jpg", "images/video/ophelia_02.jpg"]
+    }
+  };
+
+  const wrap = document.getElementById('featuredWrap');
+  const video = document.getElementById('featuredVideo');
+  const intVideo = document.getElementById('overlayInternalVideo');
+  const scrubBar = document.getElementById('scrubBar');
+  const overlay = document.getElementById('videoOverlay');
+
+  function switchProject(key) {
+    const data = projectData[key];
+    video.src = data.video;
+    intVideo.src = data.video;
+    document.querySelector('#staticInfo h2').innerText = data.title;
+    document.querySelector('#overlayText h2').innerText = data.title;
+    document.getElementById('overlayMeta').innerText = data.meta;
+    document.getElementById('overlayDesc').innerHTML = `<p>${data.desc}</p>`;
+    
+    const imgGrid = document.getElementById('overlayImgGrid');
+    imgGrid.innerHTML = '';
+    data.stills.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      imgGrid.appendChild(img);
+    });
+
+    video.load();
+    intVideo.load();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Initial Load
+  switchProject('mabeyn');
+
+  const handleScrub = (e) => {
+    if (overlay.classList.contains('is-active')) return;
+    const rect = wrap.getBoundingClientRect();
+    const clientX = (e.clientX || (e.touches && e.touches[0].clientX));
+    const x = clientX - rect.left;
+    const pct = Math.max(0, Math.min(1, x / rect.width));
+    scrubBar.style.width = (pct * 100) + '%';
+    if (video.duration) video.currentTime = pct * video.duration;
+  };
+
+  wrap.addEventListener('mousemove', handleScrub);
+  wrap.addEventListener('click', () => {
+    overlay.classList.add('is-active');
+    intVideo.currentTime = video.currentTime;
+    intVideo.play();
+  });
+
+  document.getElementById('closeOverlay').addEventListener('click', (e) => {
+    e.stopPropagation();
+    overlay.classList.remove('is-active');
+    intVideo.pause();
+  });
+</script>
+
+<script src="shared.js"></script>
+</body>
+</html>
