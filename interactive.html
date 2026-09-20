@@ -65,6 +65,39 @@
     object-fit: contain;
 }
 
+/* ── CUSTOM PNG ARROWS ── */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: all 0.25s var(--ease);
+    padding: 0.5rem;      
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto; 
+}
+
+.nav-arrow img {
+    width: 45px;
+    height: auto;
+    display: block;
+}
+
+.prev-arrow { left: 1rem; }
+.next-arrow { right: 1rem; }
+
+@media (max-width: 900px) {
+    .prev-arrow { left: 0.5rem; }
+    .next-arrow { right: 0.5rem; }
+    .nav-arrow img { width: 35px; }
+}
+
 .close-overlay {
   position: absolute;
   top: 1rem; right: 1rem;
@@ -77,7 +110,6 @@
   width: 45px;
   height: auto;
   display: block;
-  /* Keep this one white to show against the dark blue overlay */
   filter: brightness(0) invert(1);
 }
 
@@ -170,19 +202,28 @@
           <img src="images/icons/ex.png" alt="Close">
         </button>
         
-        <div class="overlay-left" id="overlayMediaWrap">
-          <!-- media injected by JS -->
+        <div class="overlay-left">
+            <button class="nav-arrow prev-arrow" id="prevArrow" onclick="changeSlide(-1, event)">
+                <img src="images/icons/backward.png" alt="Previous">
+            </button>
+
+            <div id="overlayMediaWrap"></div>
+
+            <button class="nav-arrow next-arrow" id="nextArrow" onclick="changeSlide(1, event)">
+                <img src="images/icons/forward.png" alt="Next">
+            </button>
         </div>
 
         <div class="overlay-right">
           <h2 id="overlayTitle" style="font-family: 'Cormorant', serif; font-size: 2.2rem; margin-bottom: 0.5rem;">Abiogenesis</h2>
-          <p id="overlayMeta" style="opacity: 0.6; margin-bottom: 1rem; text-transform: uppercase; font-size: 0.65rem;">Generative / Interactive · 2024</p>
+          <p id="overlayMeta" style="opacity: 0.6; margin-bottom: 1rem; text-transform: uppercase; font-size: 0.65rem;">Kinetic Sculpture / Interactive Installation · 2024</p>
           <div style="line-height: 1.6; font-size: 0.85rem; margin-bottom: 1.5rem;">
-            <p id="overlayDesc">A study of how order seems to emerge from disorder — simple rules layered on top of each other until something that reads as "alive" appears on screen. The piece treats the origin of life as a formal problem: what is the minimum amount of structure needed before a system looks like it's making its own decisions?</p>
+            <p id="overlayDesc"></p>
           </div>
           <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">
             <p style="font-size: 0.55rem; text-transform: uppercase; color: #e2b0a3; font-weight: bold;">Method</p>
-            <p id="methodText" style="font-style: italic; font-size: 0.8rem;">Generative still, rendered from a rule-based growth system.</p>
+            <p id="methodText" style="font-style: italic; font-size: 0.8rem;"></p>
+            <p id="slideCounter" style="font-size: 0.6rem; opacity: 0.4; margin-top: 0.5rem;"></p>
           </div>
         </div>
       </div>
@@ -194,7 +235,7 @@
       <div class="p-item" onclick="openProject('abiogenesis')">
         <div class="p-thumb" style="background-image: url('images/interactive/abiogenisis.JPG');"></div>
         <p style="font-family: var(--font-dec); font-size: 1.4rem; margin:0;">Abiogenesis</p>
-        <p style="font-size: 0.65rem; opacity: 0.5; text-transform: uppercase;">Generative • 2024</p>
+        <p style="font-size: 0.65rem; opacity: 0.5; text-transform: uppercase;">Kinetic Sculpture • 2024</p>
       </div>
 
       <div class="p-item" onclick="openProject('cymatic')">
@@ -210,15 +251,7 @@
           <video src="images/interactive/microcosmetic.MOV" muted loop autoplay playsinline></video>
         </div>
         <p style="font-family: var(--font-dec); font-size: 1.4rem; margin:0;">Microcosmetic</p>
-        <p style="font-size: 0.65rem; opacity: 0.5; text-transform: uppercase;">Video / Interactive • 2024</p>
-      </div>
-
-      <div class="p-item" onclick="openProject('untitled')">
-        <div class="p-thumb">
-          <video src="images/interactive/IMG_0196.MOV" muted loop autoplay playsinline></video>
-        </div>
-        <p style="font-family: var(--font-dec); font-size: 1.4rem; margin:0;">Untitled</p>
-        <p style="font-size: 0.65rem; opacity: 0.5; text-transform: uppercase;">Video / Interactive • 2024</p>
+        <p style="font-size: 0.65rem; opacity: 0.5; text-transform: uppercase;">Projection Mapping • 2024</p>
       </div>
     </div>
   </div>
@@ -229,68 +262,89 @@
   const projects = {
     abiogenesis: {
       title: "Abiogenesis",
-      meta: "Generative / Interactive · 2024",
-      type: "image",
-      src: "images/interactive/abiogenisis.JPG",
-      description: "A study of how order seems to emerge from disorder — simple rules layered on top of each other until something that reads as \"alive\" appears on screen. The piece treats the origin of life as a formal problem: what is the minimum amount of structure needed before a system looks like it's making its own decisions?",
-      method: "Generative still, rendered from a rule-based growth system."
+      meta: "Kinetic Sculpture / Interactive Installation · 2024",
+      description: "A meditative sculptural piece animated by the gestures of its audience, creating a form of voluntary play between machine and human, animate and inanimate. A digital organism that only activates when a person enters its space, the piece invites viewers to witness the moment movement becomes life — a cell forming, an idea taking shape, a machine beginning to learn — asking how new forms of life might emerge when human movement and technology shape one another.",
+      method: "Sensor-driven kinetic sculpture that responds to the movement and gestures of nearby viewers.",
+      media: [
+        { type: "image", src: "images/interactive/abiogenisis.JPG" },
+        { type: "image", src: "images/interactive/untitled.jpeg" }
+      ]
     },
     cymatic: {
       title: "Cymatic Play",
-      meta: "Sound / Interactive · 2024",
-      type: "video",
-      src: "images/interactive/cymatic_play.MOV",
-      description: "An interactive experiment in cymatics — using sound and vibration to coax visible pattern out of a resonating surface. Frequency becomes the only input, and the resulting geometry is never fully predictable, so the piece is really a dialogue between the sound played and the material's own physics.",
-      method: "Live sound driving a vibrating plate, recorded on video."
+      meta: "Sound / Interactive Installation · 2024",
+      description: "An embodied interaction between audience and water caustics, built as a multisensory experience. A steel bowl projects shifting reflections of water onto the ceiling and walls via a DMX light refracted through mirrors, while audience members play with the bowl using their hands or a flashlight. A speaker shaker and an Arduino-connected photocell keep the water moving and reacting to touch, synthesized live in MaxMSP. The result magnifies a usually small, overlooked observation — caustics on a glass or at the edge of a pool — into a soothing, meditative focal point.",
+      method: "DMX light refracted through mirrors in a steel bowl; Arduino photocell and speaker shaker drive the water, synthesized in MaxMSP.",
+      media: [
+        { type: "video", src: "images/interactive/cymatic_play.MOV" }
+      ]
     },
     microcosmetic: {
       title: "Microcosmetic",
-      meta: "Video / Interactive · 2024",
-      type: "video",
-      src: "images/interactive/microcosmetic.MOV",
-      description: "A close-up look at texture and surface pulled from cosmetic and bodily materials, magnified until the familiar becomes unrecognizable. The title plays on the tension between \"microscopic\" and \"cosmetic\" — the piece asks how scale changes what we're willing to call beautiful.",
-      method: "Macro video capture of cosmetic and organic materials in motion."
-    },
-    untitled: {
-      title: "Untitled",
-      meta: "Video / Interactive · 2024",
-      type: "video",
-      src: "images/interactive/IMG_0196.MOV",
-      description: "An unresolved, ongoing experiment — kept untitled deliberately, as a placeholder for a piece still being worked out. Included here as documentation of process rather than a finished statement.",
-      method: "Raw video capture, unedited documentation of an in-progress experiment."
+      meta: "Projection Mapping / Interactive Installation · 2024",
+      description: "MicroCosmetic is an immersive projection-mapping installation that turns a participant's face into a living canvas. Real-time facial tracking projects an organic, star-like shape onto the user's skin, warping across their features as they move through a darkened room scattered with suspended mirror shards that slow their movement and reveal only glimpses of the image, while other audience members watch as the participant becomes the artwork. The piece critiques contemporary beauty culture, identity, and our obsession with cleanliness — subverting the tradition of projecting faces onto other objects by instead letting an extinct microorganism make its way onto our own, evoking wonder, hallucinatory focus, and discomfort.",
+      method: "Real-time facial tracking driving projection-mapped light through suspended mirror shards.",
+      media: [
+        { type: "video", src: "images/interactive/microcosmetic.MOV" }
+      ]
     }
   };
 
-  function renderMedia(container, project, className) {
-    container.innerHTML = "";
-    if (project.type === "video") {
+  let currentProjectKey = null;
+  let currentSlideIndex = 0;
+
+  function renderSlide() {
+    const project = projects[currentProjectKey];
+    const media = project.media[currentSlideIndex];
+    const wrap = document.getElementById("overlayMediaWrap");
+    wrap.innerHTML = "";
+
+    if (media.type === "video") {
       const video = document.createElement("video");
-      video.src = project.src;
+      video.src = media.src;
       video.controls = true;
       video.playsInline = true;
-      video.className = className;
-      container.appendChild(video);
+      video.className = "main-slide-video";
+      wrap.appendChild(video);
     } else {
       const img = document.createElement("img");
-      img.src = project.src;
-      img.className = className;
-      container.appendChild(img);
+      img.src = media.src;
+      img.className = "main-slide-img";
+      wrap.appendChild(img);
     }
+
+    const hasMultiple = project.media.length > 1;
+    document.getElementById("prevArrow").style.display = hasMultiple ? "flex" : "none";
+    document.getElementById("nextArrow").style.display = hasMultiple ? "flex" : "none";
+    document.getElementById("slideCounter").innerText = hasMultiple
+      ? `${currentSlideIndex + 1} / ${project.media.length}`
+      : "";
   }
 
   function openProject(key) {
     const project = projects[key];
     if (!project) return;
 
+    currentProjectKey = key;
+    currentSlideIndex = 0;
+
     document.getElementById("overlayTitle").innerText = project.title;
     document.getElementById("overlayMeta").innerText = project.meta;
     document.getElementById("overlayDesc").innerText = project.description;
     document.getElementById("methodText").innerText = project.method;
 
-    renderMedia(document.getElementById("overlayMediaWrap"), project, "main-slide-img");
+    renderSlide();
 
     document.getElementById("mainCard").scrollIntoView({ behavior: "smooth" });
     toggleOverlay(true);
+  }
+
+  function changeSlide(dir, e) {
+    if (e) e.stopPropagation();
+    const project = projects[currentProjectKey];
+    if (!project || project.media.length < 2) return;
+    currentSlideIndex = (currentSlideIndex + dir + project.media.length) % project.media.length;
+    renderSlide();
   }
 
   function toggleOverlay(show, e) {
