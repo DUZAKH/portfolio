@@ -135,7 +135,9 @@ em     { font-weight: inherit; font-style: italic; }
   width: 100%;
   max-width: 300px;
   height: 100vh;
-  background: var(--cream);
+  background: rgba(253,247,237,0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   z-index: 2050;
   display: flex;
   flex-direction: column;
@@ -144,7 +146,7 @@ em     { font-weight: inherit; font-style: italic; }
   transform: translateX(100%);
   transition: transform 0.35s var(--ease);
   visibility: hidden;
-  box-shadow: -5px 0 25px rgba(0,0,0,0.05);
+  box-shadow: -5px 0 25px rgba(0,0,0,0.08);
 }
 .mobile-menu.active {
   transform: translateX(0);
@@ -158,13 +160,13 @@ em     { font-weight: inherit; font-style: italic; }
   background: none;
   border: none;
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.7;
   transition: opacity 0.3s, transform 0.3s;
   z-index: 2100;
   padding: 0;
   
   /* Adjust this width to match your desired size */
-  width: 40px; 
+  width: 42px; 
   height: auto;
 }
 
@@ -184,11 +186,11 @@ em     { font-weight: inherit; font-style: italic; }
 .menu-close:hover { opacity: 1; }
 
 .mobile-menu a {
-  font-size: 1.35rem;
-  padding: 0.7rem 0;
+  font-size: 1.05rem;
+  padding: 0.6rem 0;
   color: var(--ink);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s;
 }
