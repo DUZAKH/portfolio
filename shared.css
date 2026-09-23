@@ -89,6 +89,8 @@ em     { font-weight: inherit; font-style: italic; }
   font-size: 1.25rem;
   color: var(--ink);
   transition: color 0.2s;
+  position: relative;
+  top: 0.35em;
 }
 .nav-logo:hover { color: var(--ember); }
 
