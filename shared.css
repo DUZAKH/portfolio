@@ -95,7 +95,7 @@ em     { font-weight: inherit; font-style: italic; }
 }
 .nav-logo:hover { color: var(--ember); }
 
-.nav-links { display: flex; align-items: center; gap: 1.8rem; }
+.nav-links { display: none; align-items: center; gap: 1.8rem; }
 .nav-links a {
   font-weight: 400;
   font-size: 0.92rem;
@@ -117,7 +117,8 @@ em     { font-weight: inherit; font-style: italic; }
 .hamburger {
   z-index: 2100;
   cursor: pointer;
-  display: none;
+  display: block;
+  position: relative;
   background: none;
   border: none;
   padding: 0;
@@ -317,8 +318,6 @@ em     { font-weight: inherit; font-style: italic; }
 
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
 @media (max-width: 860px) {
-  .hamburger { display: block; position: relative; }
-  .nav-links { display: none; }
   .container, .page-header { padding-left: 1.25rem; padding-right: 1.25rem; }
   .site-footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
   .page-rule { margin-left: 1.25rem; margin-right: 1.25rem; }
