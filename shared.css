@@ -47,14 +47,14 @@
 
 /* ── RESET ──────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; font-size: 17px; }
 
 body {
   background: var(--cream);
   color: var(--ink);
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   line-height: 1.7;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -86,16 +86,16 @@ em     { font-weight: inherit; font-style: italic; }
 }
 .nav-logo {
   font-family: var(--font-dec);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   color: var(--ink);
   transition: color 0.2s;
 }
 .nav-logo:hover { color: var(--ember); }
 
-.nav-links { display: flex; align-items: center; gap: 1.6rem; }
+.nav-links { display: flex; align-items: center; gap: 1.8rem; }
 .nav-links a {
   font-weight: 400;
-  font-size: 0.78rem;
+  font-size: 0.92rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   opacity: 0.55;
@@ -180,8 +180,8 @@ em     { font-weight: inherit; font-style: italic; }
 .menu-close:hover { opacity: 1; }
 
 .mobile-menu a {
-  font-size: 1.1rem;
-  padding: 0.6rem 0;
+  font-size: 1.35rem;
+  padding: 0.7rem 0;
   color: var(--ink);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -193,9 +193,9 @@ em     { font-weight: inherit; font-style: italic; }
 /* ── BUTTONS ─────────────────────────────────────────────────── */
 .btn {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  font-weight: 400; font-size: 0.78rem;
+  font-weight: 400; font-size: 0.92rem;
   letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 0.7rem 1.75rem;
+  padding: 0.9rem 2.1rem;
   border: 1.5px solid var(--ember);
   background: var(--ember); color: var(--cream);
   cursor: pointer;
@@ -217,14 +217,14 @@ em     { font-weight: inherit; font-style: italic; }
 }
 .page-eyebrow {
   font-family: var(--font-orn);
-  font-weight: 600; font-size: 0.95rem;
+  font-weight: 600; font-size: 1.1rem;
   letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--ember); margin-bottom: 0.75rem;
 }
 .page-title {
   font-family: var(--font-orn);
   font-weight: 400;
-  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-size: clamp(2.6rem, 6.5vw, 4.4rem);
   line-height: 1.0; color: var(--ink);
 }
 .page-title span {
@@ -234,7 +234,7 @@ em     { font-weight: inherit; font-style: italic; }
   display: inline-block; margin-right: 0.2em;
 }
 .page-count {
-  font-weight: 300; font-size: 0.75rem;
+  font-weight: 300; font-size: 0.88rem;
   letter-spacing: 0.1em; color: rgba(45,62,85,0.35);
   text-transform: uppercase; white-space: nowrap;
 }
@@ -258,15 +258,15 @@ em     { font-weight: inherit; font-style: italic; }
   display: flex; align-items: center;
   justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
 }
-.footer-logo { font-family: var(--font-dec); font-size: 1rem; opacity: 0.45; }
-.footer-links { display: flex; gap: 1.6rem; flex-wrap: wrap; }
+.footer-logo { font-family: var(--font-dec); font-size: 1.15rem; opacity: 0.45; }
+.footer-links { display: flex; gap: 1.7rem; flex-wrap: wrap; }
 .footer-links a {
-  font-weight: 300; font-size: 0.7rem;
+  font-weight: 300; font-size: 0.85rem;
   letter-spacing: 0.12em; text-transform: uppercase;
   opacity: 0.38; transition: opacity 0.2s, color 0.2s;
 }
 .footer-links a:hover { opacity: 1; color: var(--ember); }
-.footer-copy { font-weight: 300; font-size: 0.72rem; color: rgba(45,62,85,0.3); }
+.footer-copy { font-weight: 300; font-size: 0.85rem; color: rgba(45,62,85,0.3); }
 
 /* ── LIGHTBOX ────────────────────────────────────────────────── */
 .lightbox {
@@ -279,12 +279,12 @@ em     { font-weight: inherit; font-style: italic; }
 .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; box-shadow: var(--shadow-med); }
 .lightbox-close {
   position: fixed; top: 1.5rem; right: 2rem;
-  font-weight: 300; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 300; font-size: 0.88rem; letter-spacing: 0.14em; text-transform: uppercase;
   background: none; border: none; cursor: pointer; opacity: 0.5; transition: opacity 0.2s;
 }
 .lightbox-caption {
   position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
-  font-weight: 300; font-size: 0.78rem; letter-spacing: 0.1em;
+  font-weight: 300; font-size: 0.92rem; letter-spacing: 0.1em;
   color: rgba(45,62,85,0.45); white-space: nowrap;
 }
 
